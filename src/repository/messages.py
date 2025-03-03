@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from redis import Redis
 
-from Models import MessageList, Message
+from src.models.message import Message, MessageList
 
 
 class Messages(ABC):
@@ -11,17 +11,18 @@ class Messages(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def add(self,message: Message) -> None:
+    def add(self, message: Message) -> None:
         raise NotImplementedError
 
     @abstractmethod
     def get_after(self, timestamp: int) -> MessageList:
         raise NotImplementedError
 
+
 class RedisMessages(Messages):
     __redis: Redis
 
-    def __init__(self, redis:Redis):
+    def __init__(self, redis: Redis):
         self.__redis = redis
 
         if self.__redis.get('msgs') is None:
