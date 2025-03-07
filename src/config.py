@@ -1,31 +1,32 @@
+from dynaconf import Dynaconf
+from os import getenv
+from dataclasses import dataclass, field
+from adaptix import Retort
+
+@dataclass(slots=True)
 class ApiConfig:
     host: str
     port: int
 
-    project_name: str
-    allow_origins: list[str]
-    allow_methods: list[str]
-    allow_headers: list[str]
+    project_name: str = 'websockChat'
+    allow_origins: list[str] = field(default_factory=list)
+    allow_methods: list[str] = field(default_factory=list)
+    allow_headers: list[str] = field(default_factory=list)
     allow_credentials: bool = True
 
-def get_api() -> ApiConfig:
-    api = ApiConfig()
-
-    api.project_name = 'webSockChat'
-
-    api.allow_origins = ['*']
-    api.allow_methods = ['*']
-    api.allow_headers = ['*']
-
-    return api
-
+@dataclass(slots=True)
 class Config:
     api:ApiConfig
 
 def get_config() -> Config:
-    cfg = Config()
+    dynaconf = Dynaconf(
+        settings_files = ['./src/config.toml'],
+        load_dotenv = True
+    )
 
-    cfg.api = get_api()
+    retort = Retort()
+
+    cfg:Config = retort.load(dynaconf,Config)
 
     return cfg
 

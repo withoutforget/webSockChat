@@ -6,7 +6,7 @@ from src.presentation.fastapi.setup import setup_routes
 
 def setup_fastapi(config: ApiConfig) -> FastAPI:
     app = FastAPI(
-        title = config.project_name
+        title = config.project_name,
     )
 
     app.add_middleware(

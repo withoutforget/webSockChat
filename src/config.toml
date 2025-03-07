@@ -1,5 +1,5 @@
 [api]
-project_name = "web socket backend"
+project_name = "websockChat backend"
 host = "127.0.0.1"
 port = 80
 
