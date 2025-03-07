@@ -1,0 +1,8 @@
+[api]
+project_name = "web socket backend"
+host = "127.0.0.1"
+port = 80
+
+allow_origins = ['*']
+allow_headers = ["*"]
+allow_methods = ["*"]
